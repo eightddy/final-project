@@ -16,15 +16,22 @@ import sys
 import keras
 from keras.models import Sequential
 from keras.layers import Dense
+from keras.layers import Dropout
 
 # Initialising the ANN
 classifier = Sequential()
 
 # Adding the input layer and the first hidden layer
-classifier.add(Dense(units = 64, kernel_initializer = 'uniform', activation = 'relu', input_dim = 1573))
+classifier.add(Dense(units = 72, kernel_initializer = 'uniform', activation = 'relu', input_dim = 1573))
+classifier.add(Dropout(rate = 0.5))
 
 # Adding the second hidden layer
-classifier.add(Dense(units = 64, kernel_initializer = 'uniform', activation = 'relu'))
+classifier.add(Dense(units = 36, kernel_initializer = 'uniform', activation = 'relu'))
+classifier.add(Dropout(rate = 0.2))
+
+# Adding the third hidden layer
+classifier.add(Dense(units = 18, kernel_initializer = 'uniform', activation = 'relu'))
+classifier.add(Dropout(rate = 0.2))
 
 # Adding the output layer
 classifier.add(Dense(units = 9, kernel_initializer = 'uniform', activation = 'softmax'))
@@ -35,8 +42,6 @@ classifier.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metric
 print (classifier.summary())
 
 print ("===========================================================================================")
-
-#sys.exit()
 
 # Part 2 - Data Preprocessing
 
@@ -49,16 +54,16 @@ import pandas as pd
 # Importing the dataset
 dataset = pd.read_csv('train/train.csv')
 X = dataset.iloc[:, 0:1573].values
-print "X: ", X.shape, X
+# print "X: ", X.shape, X
 y = dataset.iloc[:, 1573:1574].values
-print "y: ", y.shape, y
+# print "y: ", y.shape, y
 
 # Encoding categorical data
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 enc = OneHotEncoder()
 enc.fit(y)
 y = enc.transform(y)
-print "y: ", y.shape, y
+# print "y: ", y.shape, y
 
 # Feature Scaling
 from sklearn.preprocessing import StandardScaler
@@ -67,14 +72,14 @@ X = sc.fit_transform(X)
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 101, test_size=0.3)
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 42, test_size=0.3)
 
 
-print "X_train: ", X_train.shape, X_train
-print "X_test: ", X_test.shape, X_test
-print "y_train: ", y_train.shape, y_train
-print "y_test: ", y_test.shape, y_test
-# sys.exit()
+# print "X_train: ", X_train.shape, X_train
+# print "X_test: ", X_test.shape, X_test
+# print "y_train: ", y_train.shape, y_train
+# print "y_test: ", y_test.shape, y_test
+
 # Fitting the ANN to the Training set
 history = classifier.fit(X_train, y_train, batch_size = 10, epochs = 30)
 # Part 3 - Making predictions and evaluating the model
@@ -95,9 +100,11 @@ y_pred = classifier.predict(X_test)
 y_pred = enc.inverse_transform(y_pred)
 print y_pred.shape, y_pred, y_test.shape, y_test
 
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, classification_report
+
 cm = confusion_matrix(enc.inverse_transform(y_test), y_pred)
 print cm
+print classification_report(enc.inverse_transform(y_test), y_pred)
 
 def plot_confusion_matrix(cm, classes,
                           normalize=False,
@@ -137,7 +144,7 @@ plt.figure()
 plot_confusion_matrix(cm, classes=class_names, normalize=True, title='Normalized confusion matrix')
 plt.show()
 
-# sys.exit()
+sys.exit()
 
 # Predicting the Test set results
 dataset_test = pd.read_csv('test/test.csv')
