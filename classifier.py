@@ -66,7 +66,7 @@ pred = clf.predict(test_x)
 print("Val Score: ", clf.score(test_x, test_y))
 print classification_report(test_y, pred)
 print test_y, pred
-sys.exit()
+# sys.exit()
 print confusion_matrix(test_y, pred)
 
 # -----------------------------------------------------------------------------------------------------

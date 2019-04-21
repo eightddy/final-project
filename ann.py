@@ -23,15 +23,15 @@ classifier = Sequential()
 
 # Adding the input layer and the first hidden layer
 classifier.add(Dense(units = 72, kernel_initializer = 'uniform', activation = 'relu', input_dim = 1573))
-classifier.add(Dropout(rate = 0.5))
+# classifier.add(Dropout(rate = 0.5))
 
 # Adding the second hidden layer
 classifier.add(Dense(units = 36, kernel_initializer = 'uniform', activation = 'relu'))
-classifier.add(Dropout(rate = 0.2))
+# classifier.add(Dropout(rate = 0.2))
 
 # Adding the third hidden layer
 classifier.add(Dense(units = 18, kernel_initializer = 'uniform', activation = 'relu'))
-classifier.add(Dropout(rate = 0.2))
+# classifier.add(Dropout(rate = 0.2))
 
 # Adding the output layer
 classifier.add(Dense(units = 9, kernel_initializer = 'uniform', activation = 'softmax'))

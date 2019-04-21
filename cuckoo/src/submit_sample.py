@@ -15,18 +15,15 @@ def submit_sample(sample_path) :
     REST_URL = "http://localhost:8090/tasks/create/file"
 
     files = os.listdir(sample_path)
-    mal_files = [i for i in files]
-    print mal_files
-    sys.exit()
-    SAMPLE_FILE = sample_path
-    
+    mal_files = [i for i in files if not i.endswith('.py') ]
     HEADERS = {"Authorization": "Bearer S4MPL3"}
-
-    with open(SAMPLE_FILE, "rb") as sample:
-        print sample
-        files = {"file": ("temp_file_name", sample)}
-        r = requests.post(REST_URL, headers=HEADERS, files=files)
-
+    j = 1
+    for i in mal_files:
+        with open(i, "rb") as sample:
+	    print j, "-", sample.name
+            files = {"file": (sample.name, sample)}
+            r = requests.post(REST_URL, headers=HEADERS, files=files)
+	    j += 1
     print r.json()
     
     # Add your code to error checking for r.status_code.
