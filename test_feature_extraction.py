@@ -6,8 +6,8 @@ import os, gzip
 import hickle
 
 
-file_path = "samples/01IsoiSMh5gxyDYTl4CB.asm"
-#file_path = "samples/0QIZ6hemJLErWdFlGnCc.bytes"
+file_path = "samples/01IsoiSMh5gxyDYTl4CB.bytes"
+# file_path = "samples/3/04BfoQRA6XEshiNuI7pF.bytes"
 #file_path = "samples/test/ITSUPtCmh7WdJcsYDwQ5.asm"
 # doc tung dong cua file .bytes	
 with open(file_path) as f:
@@ -16,10 +16,11 @@ with open(file_path) as f:
 
 
 # print fe.byte_1gram(byte_code)
-# print fe.byte_make_image(byte_code)
+
+print fe.byte_make_image(byte_code)
 # print fe.byte_image1(byte_code)
 # print fe.byte_image2(byte_code)
-
+sys.exit()
 
 
 #print fe.asm_data_define(byte_code)

@@ -70,9 +70,12 @@ def byte_make_image(byte_code):
     b=2**(int(log(b)/log(2))+1)
     #print img_array.shape[0]*16
     a=int(img_array.shape[0]*16/b)
+    print a, b
+    print img_array.shape, img_array
     img_array=img_array[:a*b/16,:]
+    print "x:",img_array[:a*b/16,:].shape, img_array[:a*b/16,:]
     img_array=np.reshape(img_array,(a,b))
-
+    print img_array.shape, img_array
     # img_array = np.uint8(img_array)
     # im = Image.fromarray(img_array)
     # im.show()
