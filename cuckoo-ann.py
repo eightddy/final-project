@@ -146,22 +146,3 @@ plot_confusion_matrix(cm, classes=class_names, normalize=True, title='Normalized
 plt.show()
 
 sys.exit()
-
-# Predicting the Test set results
-dataset_test = pd.read_csv('test/test.csv')
-X_test = dataset_test.iloc[:, 0:412].values
-X_test = StandardScaler().fit_transform(X_test)
-# X_test = X_test.reshape((X_test.shape[0], 412, 1))
-
-ynew = classifier.predict(X_test, batch_size=10, verbose=1)
-#ynew = enc.inverse_transform(ynew)
-print ynew 
-
-from csv import writer
-
-f_csv = open('result_ann.csv', 'w')
-csv_w = writer(f_csv)
-csv_w.writerows([["Prediction1","Prediction2","Prediction3","Prediction4","Prediction5","Prediction6","Prediction7","Prediction8","Prediction9"]])
-
-for i in ynew:
-    csv_w.writerows([i])
