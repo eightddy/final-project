@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 
 # Importing the dataset
-dataset = pd.read_csv('train/train.csv')
+dataset = pd.read_csv('train/all.csv')
 X = dataset.iloc[:, 0:850].values
 # print "X: ", X.shape, X
 y = dataset.iloc[:, 850:851].values
@@ -65,7 +65,7 @@ print h
 pred = clf.predict(test_x)
 print("Val Score: ", clf.score(test_x, test_y))
 print classification_report(test_y, pred)
-print test_y, pred
+#print test_y, pred
 # sys.exit()
 print confusion_matrix(test_y, pred)
 
