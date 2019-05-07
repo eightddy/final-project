@@ -72,7 +72,7 @@ X = sc.fit_transform(X)
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 42, test_size=0.3)
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 42, test_size=0.4)
 
 
 # print "X_train: ", X_train.shape, X_train

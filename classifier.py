@@ -19,7 +19,7 @@ X = sc.fit_transform(X)
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
-train_x, test_x, train_y, test_y = train_test_split(X, y, random_state = 42, test_size=0.3)
+train_x, test_x, train_y, test_y = train_test_split(X, y, random_state = 42, test_size=0.4)
 from sklearn.metrics import classification_report, confusion_matrix
 # import the KNeighborsClassifer class from sklearn
 from sklearn.neighbors import KNeighborsClassifier
