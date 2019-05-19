@@ -70,15 +70,15 @@ def byte_make_image(byte_code):
     b=2**(int(log(b)/log(2))+1)
     #print img_array.shape[0]*16
     a=int(img_array.shape[0]*16/b)
-    print a, b
-    print img_array.shape, img_array
+    # print a, b
+    # print img_array.shape, img_array
     img_array=img_array[:a*b/16,:]
-    print "x:",img_array[:a*b/16,:].shape, img_array[:a*b/16,:]
+    # print "x:",img_array[:a*b/16,:].shape, img_array[:a*b/16,:]
     img_array=np.reshape(img_array,(a,b))
-    print img_array.shape, img_array
-    img_array = np.uint8(img_array)
-    im = Image.fromarray(img_array)
-    im.show()
+    # print img_array.shape, img_array
+    # img_array = np.uint8(img_array)
+    # im = Image.fromarray(img_array)
+    # im.show()
     # sys.exit()
     return img_array
 # --------------------------------------------------------------------------------------------
@@ -148,23 +148,25 @@ def asm_meta_data(file_path, asm_code):
 # params: asm_code
 # returns: dem so lan xuat hien cua symbol
 def asm_symbols(asm_code):
-    symbols = [0]*7
+    symbols = [0]*8
     for row in asm_code:
         if '*' in row:
-            symbols[0] += 1
+            symbols[0] += row.count("*")
         if '-' in row:
-            symbols[1] += 1
+            symbols[1] += row.count("-")
         if '+' in row:
-            symbols[2] += 1
+            symbols[2] += row.count("+")
         if '[' in row:
-            symbols[3] += 1
+            symbols[3] += row.count("[")
         if ']' in row:
-            symbols[4] += 1
+            symbols[4] += row.count("]")
         if '@' in row:
-            symbols[5] += 1
+            symbols[5] += row.count("@")
         if '?' in row:
-            symbols[6] += 1
-
+            symbols[6] += row.count("?")
+        for i in range(len (row)):
+            if (ord(row[i]) >= 128 and ord(row[i]) <= 255):
+                symbols[7] += 1
     return symbols
 
 #
@@ -188,15 +190,16 @@ def asm_registers(asm_code):
 # params: asm_code
 # returns: so lan xua hien cua 93 opcodes
 def asm_opcodes(asm_code):
-    opcodes = ['add','al','bt','call','cdq','cld','cli','cmc','cmp','const','cwd','daa','db'
-                ,'dd','dec','dw','endp','ends','faddp','fchs','fdiv','fdivp','fdivr','fild'
-                ,'fistp','fld','fstcw','fstcwimul','fstp','fword','fxch','imul','in','inc'
-                ,'ins','int','jb','je','jg','jge','jl','jmp','jnb','jno','jnz','jo','jz'
-                ,'lea','loope','mov','movzx','mul','near','neg','not','or','out','outs'
-                ,'pop','popf','proc','push','pushf','rcl','rcr','rdtsc','rep','ret','retn'
-                ,'rol','ror','sal','sar','sbb','scas','setb','setle','setnle','setnz'
-                ,'setz','shl','shld','shr','sidt','stc','std','sti','stos','sub','test'
-                ,'wait','xchg','xor']
+    # opcodes = ['add','al','bt','call','cdq','cld','cli','cmc','cmp','const','cwd','daa','db'
+    #             ,'dd','dec','dw','endp','ends','faddp','fchs','fdiv','fdivp','fdivr','fild'
+    #             ,'fistp','fld','fstcw','fstcwimul','fstp','fword','fxch','imul','in','inc'
+    #             ,'ins','int','jb','je','jg','jge','jl','jmp','jnb','jno','jnz','jo','jz'
+    #             ,'lea','loope','mov','movzx','mul','near','neg','not','or','out','outs'
+    #             ,'pop','popf','proc','push','pushf','rcl','rcr','rdtsc','rep','ret','retn'
+    #             ,'rol','ror','sal','sar','sbb','scas','setb','setle','setnle','setnz'
+    #             ,'setz','shl','shld','shr','sidt','stc','std','sti','stos','sub','test'
+    #             ,'wait','xchg','xor']
+    opcodes = ['add', 'call', 'cdq', 'cld', 'cli', 'cmc', 'cmp', 'cwd', 'daa', 'dd', 'dec', 'dw', 'endp', 'faddp', 'fchs', 'fdiv', 'fdivr', 'fistp', 'fld', 'fstp', 'fword', 'fxch', 'imul', 'in', 'inc', 'ins', 'jb', 'je', 'jg', 'jl', 'jmp', 'jnb', 'jno', 'jo', 'jz', 'lea', 'mov', 'mul', 'not', 'or', 'out', 'outs', 'pop', 'push', 'rcl', 'rcr', 'rep', 'ret', 'rol', 'ror', 'sal', 'sar', 'sbb', 'scas', 'shl', 'shr', 'sidt', 'stc', 'std', 'sti', 'stos', 'sub', 'test', 'wait', 'xchg', 'xor']
     #print len(opcodes)
     opcodes_values = [0]*len(opcodes)
     for row in asm_code:
