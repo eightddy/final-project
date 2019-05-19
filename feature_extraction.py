@@ -76,9 +76,9 @@ def byte_make_image(byte_code):
     print "x:",img_array[:a*b/16,:].shape, img_array[:a*b/16,:]
     img_array=np.reshape(img_array,(a,b))
     print img_array.shape, img_array
-    # img_array = np.uint8(img_array)
-    # im = Image.fromarray(img_array)
-    # im.show()
+    img_array = np.uint8(img_array)
+    im = Image.fromarray(img_array)
+    im.show()
     # sys.exit()
     return img_array
 # --------------------------------------------------------------------------------------------
@@ -110,6 +110,15 @@ def byte_image2(byte_code):
     spoints = mahotas.features.lbp(img,10,10,ignore_zeros=False)
     #print spoints
     return spoints.tolist()
+# --------------------------------------------------------------------------------------------
+
+import strings
+
+def byte_string_lengths(file_name):
+    strs_len = strings.extract_length([strings.get_strings(file_name)])
+    #print strs_len
+    return strs_len[0].tolist()
+    #pass
 # --------------------------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------------------------

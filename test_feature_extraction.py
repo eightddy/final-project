@@ -6,14 +6,16 @@ import os, gzip
 import hickle
 
 
-# file_path = "samples/01IsoiSMh5gxyDYTl4CB.bytes"
+file_path = "samples/01IsoiSMh5gxyDYTl4CB.bytes"
 # file_path = "samples/3/04BfoQRA6XEshiNuI7pF.bytes"
 # file_path = "samples/test/ITSUPtCmh7WdJcsYDwQ5.asm"
-file_path = 'samples/text.asm'
+# file_path = 'samples/pred/1.asm'
 # doc tung dong cua file .bytes	
 with open(file_path) as f:
     byte_code = f.readlines()
-#file  = open(file_path, "r")
+
+# test byte_string_lengths
+# file  = open(file_path, "r")
 
 
 # print fe.byte_1gram(byte_code)
@@ -21,7 +23,12 @@ with open(file_path) as f:
 # print fe.byte_make_image(byte_code)
 # print fe.byte_image1(byte_code)
 # print fe.byte_image2(byte_code)
-# sys.exit()
+
+# test byte_string_lengths
+# print fe.byte_string_lengths(file)
+
+
+sys.exit()
 
 
 # print fe.asm_data_define(byte_code)

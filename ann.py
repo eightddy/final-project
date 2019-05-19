@@ -72,7 +72,7 @@ X = sc.fit_transform(X)
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 42, test_size=0.4)
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 42, test_size=0.3)
 
 
 # print "X_train: ", X_train.shape, X_train
@@ -81,7 +81,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 42, tes
 # print "y_test: ", y_test.shape, y_test
 
 # Fitting the ANN to the Training set
-history = classifier.fit(X_train, y_train, batch_size = 10, epochs = 30)
+history = classifier.fit(X_train, y_train, batch_size = 10, epochs = 10)
 # Part 3 - Making predictions and evaluating the model
 print("Val Score: ", classifier.evaluate(X_test, y_test))
 
@@ -144,23 +144,13 @@ plt.figure()
 plot_confusion_matrix(cm, classes=class_names, normalize=True, title='Normalized confusion matrix')
 plt.show()
 
-sys.exit()
 
-# Predicting the Test set results
-dataset_test = pd.read_csv('test/test.csv')
-X_test = dataset_test.iloc[:, 0:1573].values
-X_test = StandardScaler().fit_transform(X_test)
-# X_test = X_test.reshape((X_test.shape[0], 1573, 1))
+# Save model:
+# serialize model to JSON
+model_json = classifier.to_json()
+with open("save/model-ann-ms.json", "w") as json_file:
+    json_file.write(model_json)
 
-ynew = classifier.predict(X_test, batch_size=10, verbose=1)
-#ynew = enc.inverse_transform(ynew)
-print ynew 
-
-from csv import writer
-
-f_csv = open('result_ann.csv', 'w')
-csv_w = writer(f_csv)
-csv_w.writerows([["Prediction1","Prediction2","Prediction3","Prediction4","Prediction5","Prediction6","Prediction7","Prediction8","Prediction9"]])
-
-for i in ynew:
-    csv_w.writerows([i])
+# serialize weights to HDF5
+classifier.save_weights("save/model-ann-ms.h5")
+print("Saved model to disk")
