@@ -81,7 +81,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 42, tes
 # print "y_test: ", y_test.shape, y_test
 
 # Fitting the ANN to the Training set
-history = classifier.fit(X_train, y_train, batch_size = 10, epochs = 10)
+history = classifier.fit(X_train, y_train, batch_size = 10, epochs = 20)
 # Part 3 - Making predictions and evaluating the model
 print("Val Score: ", classifier.evaluate(X_test, y_test))
 
@@ -147,10 +147,12 @@ plt.show()
 
 # Save model:
 # serialize model to JSON
-model_json = classifier.to_json()
-with open("save/model-ann-ms.json", "w") as json_file:
-    json_file.write(model_json)
+is_saved = txt = raw_input("Do you want to save ? (y/n) ")
+if is_saved == 'y':
+    model_json = classifier.to_json()
+    with open("save/model-ann-ms.json", "w") as json_file:
+        json_file.write(model_json)
 
-# serialize weights to HDF5
-classifier.save_weights("save/model-ann-ms.h5")
-print("Saved model to disk")
+    # serialize weights to HDF5
+    classifier.save_weights("save/model-ann-ms.h5")
+    print("Saved model to disk")
