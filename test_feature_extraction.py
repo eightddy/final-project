@@ -47,7 +47,7 @@ with open('APIs.txt') as f:
 defined_apis = defined_apis[0].split(',')
 print len(fe.asm_APIs(byte_code, defined_apis))
 print len(fe.asm_sections(byte_code))
-# print fe.asm_data_define(byte_code)
+print fe.asm_data_define(byte_code)
 
 sys.exit()
 

@@ -156,3 +156,10 @@ if is_saved == 'y':
     # serialize weights to HDF5
     classifier.save_weights("save/model-ann-ms.h5")
     print("Saved model to disk")
+
+# Script Demo
+# python ann.py
+# python predict.py
+# python merge_csv.py
+# kaggle competitions submit -c malware-classification -f my_submission_ann.csv -m "Message demo"
+
